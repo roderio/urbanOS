@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="smartcitymanagemnet.SmartCityController"
+            stylesheets="@style.css"
+            fx:id="rootPane"
+            prefWidth="1600" prefHeight="900">
+
+    <top>
+        <HBox fx:id="titleBar" alignment="CENTER_RIGHT" spacing="10"
+              style="-fx-background-color: #181825; -fx-padding: 10;"
+              onMousePressed="#handleWindowDragStart"
+              onMouseDragged="#handleWindowDrag">
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Button onAction="#handleMinimize" text="_" styleClass="window-btn"/>
+            <Button onAction="#handleMaximize" text="▢" styleClass="window-btn"/>
+            <Button onAction="#handleClose" text="X" styleClass="window-btn-close"/>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox spacing="20" style="-fx-background-color: #181825; -fx-padding: 20; -fx-pref-width: 200;">
+            <Label text="Urban OS" style="-fx-text-fill: white; -fx-font-size: 30; -fx-font-weight: bolder; -fx-font-family: Consolas"/>
+            <Region prefHeight="20"/>
+
+            <Button fx:id="btnDashboard" text="Dashboard" maxWidth="Infinity" onAction="#showAllData"/>
+
+            <Button fx:id="btnMap" text="City Map" maxWidth="Infinity" onAction="#showMap"
+                    style="-fx-background-color: transparent; -fx-border-color: #a6accd; -fx-border-radius: 20;"/>
+
+            <Button fx:id="btnHospitals" text="Manage Hospitals" maxWidth="Infinity" onAction="#showHospitals"
+                    style="-fx-background-color: transparent; -fx-border-color: #a6accd; -fx-border-radius: 20;"/>
+
+            <Button fx:id="btnPolice" text="Manage Police" maxWidth="Infinity" onAction="#showPolice"
+                    style="-fx-background-color: transparent; -fx-border-color: #a6accd; -fx-border-radius: 20;"/>
+
+            <Button fx:id="btnFire" text="Manage Fire Dept" maxWidth="Infinity" onAction="#showFire"
+                    style="-fx-background-color: transparent; -fx-border-color: #a6accd; -fx-border-radius: 20;"/>
+
+            <Button fx:id="btnReports" text="⚠ Incident Reports" maxWidth="Infinity" onAction="#showReports"
+                    style="-fx-background-color: transparent; -fx-border-color: #ff4757; -fx-text-fill: #ff4757; -fx-border-radius: 20;"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button fx:id="btnLogout" text="Logout"
+                    style="-fx-background-color: #ff4757;"
+                    onAction="#handleLogout"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="20" style="-fx-padding: 30;">
+
+            <HBox alignment="CENTER_LEFT" spacing="20">
+
+                <Label fx:id="lblPageTitle" text="City Dashboard"
+                       style="-fx-text-fill: linear-gradient(to right, #6a11cb 0%, #2575fc 100%); -fx-font-size: 28; -fx-font-weight: bold; -fx-font-family: 'Consolas', monospace;"/>
+
+                <HBox alignment="CENTER_LEFT" styleClass="search-container" maxHeight="40">
+                    <TextField fx:id="txtSearch" promptText="Search city..."
+                               styleClass="search-field" prefWidth="250"
+                               onKeyReleased="#handleSearch"/>
+
+                    <Button text="🔍" onAction="#handleSearch" styleClass="search-button"/>
+                </HBox>
+
+                <Region prefWidth="20"/>
+
+                <Label fx:id="lblClock" text="Loading time..."
+                       style="-fx-text-fill: #a6accd; -fx-font-size: 16; -fx-font-family: 'Consolas', monospace;"/>
+
+            </HBox>
+
+            <HBox spacing="20">
+                <VBox styleClass="card" prefWidth="250" prefHeight="100" alignment="CENTER"
+                      style="-fx-background-color: linear-gradient(to bottom right, #ff9966, #ff5e62);">
+
+                    <Label fx:id="lblWeatherCity" text="Erbil, IQ" styleClass="card-title" style="-fx-text-fill: white;"/>
+
+                    <HBox alignment="CENTER" spacing="10">
+                        <ImageView fx:id="imgWeatherIcon" fitWidth="50" fitHeight="50" preserveRatio="true"/>
+                        <Label fx:id="lblTemp" text="--°C" style="-fx-font-size: 32; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+                        <VBox alignment="CENTER_LEFT">
+                            <Label fx:id="lblCondition" text="Loading..." style="-fx-text-fill: white; -fx-font-size: 14;"/>
+                            <Label fx:id="lblHumidity" text="H: --%" style="-fx-text-fill: #eee; -fx-font-size: 12;"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <VBox styleClass="card" prefWidth="200" prefHeight="100" alignment="CENTER">
+                    <Label text="Total Structures" styleClass="card-title"/><Label fx:id="lblTotalStructures" text="0" styleClass="card-value"/>
+                </VBox>
+                <VBox styleClass="card" prefWidth="200" prefHeight="100" alignment="CENTER">
+                    <Label text="Active Doctors" styleClass="card-title"/><Label fx:id="lblTotalDoctors" text="0" styleClass="card-value"/>
+                </VBox>
+                <VBox styleClass="card" prefWidth="200" prefHeight="100" alignment="CENTER">
+                    <Label text="Police Units" styleClass="card-title"/><Label fx:id="lblTotalPolice" text="0" styleClass="card-value"/>
+                </VBox>
+                <VBox styleClass="card" prefWidth="200" prefHeight="100" alignment="CENTER">
+                    <Label text="Fire Fighters" styleClass="card-title"/><Label fx:id="lblTotalFire" text="0" styleClass="card-value"/>
+                </VBox>
+            </HBox>
+
+            <StackPane fx:id="contentStack" VBox.vgrow="ALWAYS">
+
+                <HBox fx:id="dataView" spacing="20">
+                    <TableView fx:id="mainTable" HBox.hgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colName" text="Name" minWidth="120" />
+                            <TableColumn fx:id="colAddress" text="Address" minWidth="150" />
+                            <TableColumn fx:id="colDetails" text="Details" minWidth="200" />
+                            <TableColumn fx:id="colResponder" text="Responder Unit" minWidth="150" />
+                        </columns>
+                    </TableView>
+                    <PieChart fx:id="pieChart" title="Infrastructure Type" prefWidth="350" style="-fx-text-fill: white;"/>
+                </HBox>
+
+                <StackPane fx:id="mapContainer" visible="false">
+                    <WebView fx:id="mapView" />
+
+                    <Label text="📢 CLICK ANYWHERE TO REPORT INCIDENT"
+                           StackPane.alignment="TOP_CENTER"
+                           style="-fx-background-color: rgba(0, 0, 0, 0.7);
+                                  -fx-text-fill: white;
+                                  -fx-font-weight: bold;
+                                  -fx-padding: 10 20;
+                                  -fx-background-radius: 20;
+                                  -fx-border-color: rgba(255, 255, 255, 0.3);
+                                  -fx-border-radius: 20;">
+                        <StackPane.margin>
+                            <Insets top="20"/>
+                        </StackPane.margin>
+                    </Label>
+                </StackPane>
+
+            </StackPane>
+
+            <HBox alignment="CENTER_RIGHT" spacing="15">
+
+                <Button fx:id="btnAdd" text="➕ Add New" onAction="#handleAddStructure"
+                        visible="false" managed="false"
+                        style="-fx-background-color: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+               -fx-text-fill: white;
+               -fx-font-weight: bold;
+               -fx-background-radius: 20;
+               -fx-cursor: hand;"/>
+
+                <Button fx:id="btnRefresh" text="Refresh Live Data" onAction="#handleRefresh"
+                        style="-fx-background-color: transparent; -fx-border-color: #a6accd; -fx-border-radius: 20; -fx-text-fill: #a6accd; -fx-cursor: hand;"/>
+
+                <Button fx:id="btnExport" text="⬇ Export CSV" onAction="#handleExport"
+                        style="-fx-background-color: transparent; -fx-border-color: #a6accd; -fx-border-radius: 20; -fx-text-fill: #a6accd; -fx-cursor: hand;"/>
+            </HBox>
+
+        </VBox>
+    </center>
+</BorderPane>

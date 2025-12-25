@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="smartcitymanagemnet.LoginController"
+           stylesheets="@style.css"
+           styleClass="login-root"
+           prefWidth="550" prefHeight="650">
+
+
+    <Region styleClass="card-stack-bottom" rotate="10"
+            maxWidth="320" maxHeight="450"
+            StackPane.alignment="CENTER"/>
+
+    <Region styleClass="card-stack-middle" rotate="-6"
+            maxWidth="340" maxHeight="460"
+            StackPane.alignment="CENTER"/>
+
+    <BorderPane fx:id="mainCard" styleClass="card-main" maxWidth="380" maxHeight="500"
+                onMousePressed="#handleWindowDragStart"
+                onMouseDragged="#handleWindowDrag">
+
+        <top>
+            <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-padding: 15;">
+                <Button onAction="#handleMinimize" text="_" styleClass="window-btn"/>
+                <Button onAction="#handleClose" text="X" styleClass="window-btn-close"/>
+            </HBox>
+        </top>
+
+        <center>
+            <VBox alignment="CENTER" spacing="20" style="-fx-padding: 10 40 40 40;">
+
+                <VBox alignment="CENTER" spacing="5">
+                    <Label text="URBAN OS" style="-fx-text-fill: white; -fx-font-size: 28; -fx-font-weight: bold; -fx-font-family: 'Segoe UI', sans-serif;"/>
+                    <Label text="MANAGMENT SYSTEM" style="-fx-text-fill: linear-gradient(to right, #8226e0 0%, #2575fc 100%); -fx-font-size: 16; -fx-font-weight: bold; -fx-letter-spacing: 3; -fx-font-family: 'Segoe UI', sans-serif;"/>
+                </VBox>
+
+                <Region prefHeight="10"/>
+
+                <TextField fx:id="txtUser" promptText="Username" prefHeight="45" styleClass="text-field" onAction="#handleLogin"/>
+                <PasswordField fx:id="txtPass" promptText="Password" prefHeight="45" styleClass="text-field" onAction="#handleLogin"/>
+
+                <Region prefHeight="10"/>
+
+                <Button text="LOGIN" onAction="#handleLogin" maxWidth="Infinity" prefHeight="45" styleClass="button"/>
+                <Button text="Create Account" onAction="#handleSignUp" maxWidth="Infinity" prefHeight="45" styleClass="button-secondary"/>
+
+                <Label fx:id="lblMessage" text="" style="-fx-text-fill: #ff4757;"/>
+            </VBox>
+        </center>
+
+    </BorderPane>
+
+</StackPane>
