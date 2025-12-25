@@ -1,3 +1,5 @@
+![Urban OS Dashboard Screenshot](/dashboard-preview.png)
+
 🏙️ Urban OS - Smart City Management System
 Urban OS is a comprehensive JavaFX application designed to simulate and manage the critical infrastructure of a modern city. It bridges the gap between static asset management and real-time emergency response, featuring an interactive map, live weather data, and intelligent resource dispatch algorithms.
 
